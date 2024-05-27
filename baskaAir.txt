@@ -1,0 +1,206 @@
+USE [master]
+GO
+/****** Object:  Database [baskaAir]    Script Date: 19.04.2024 12:24:06 ******/
+CREATE DATABASE [baskaAir]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'baskaAir', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\baskaAir.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'baskaAir_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\baskaAir_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [baskaAir] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [baskaAir].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [baskaAir] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [baskaAir] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [baskaAir] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [baskaAir] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [baskaAir] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [baskaAir] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [baskaAir] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [baskaAir] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [baskaAir] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [baskaAir] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [baskaAir] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [baskaAir] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [baskaAir] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [baskaAir] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [baskaAir] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [baskaAir] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [baskaAir] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [baskaAir] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [baskaAir] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [baskaAir] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [baskaAir] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [baskaAir] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [baskaAir] SET RECOVERY FULL 
+GO
+ALTER DATABASE [baskaAir] SET  MULTI_USER 
+GO
+ALTER DATABASE [baskaAir] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [baskaAir] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [baskaAir] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [baskaAir] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [baskaAir] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [baskaAir] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [baskaAir] SET QUERY_STORE = OFF
+GO
+USE [baskaAir]
+GO
+/****** Object:  Table [dbo].[Аэропорт]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Аэропорт](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Название] [nvarchar](50) NOT NULL,
+	[Город] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Билет]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Билет](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[КлассБилета] [nvarchar](50) NOT NULL,
+	[Место] [nvarchar](50) NOT NULL,
+	[ЦенаБилета] [int] NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Диспетчеры]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Диспетчеры](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Логин] [nvarchar](50) NOT NULL,
+	[Пароль] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Пассажир]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Пассажир](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Имя] [nvarchar](50) NOT NULL,
+	[Фамилия] [nvarchar](50) NOT NULL,
+	[НомерПаспорта] [nvarchar](50) NOT NULL,
+	[ДатаРождения] [nvarchar](50) NOT NULL,
+	[Телефон] [int] NULL,
+	[Email] [nvarchar](50) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Пилоты]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Пилоты](
+	[idПилота] [bigint] IDENTITY(1,1) NOT NULL,
+	[Имя] [nvarchar](50) NOT NULL,
+	[Фамилия] [nvarchar](50) NOT NULL,
+	[Лицензия] [nvarchar](50) NOT NULL,
+	[Стаж] [nvarchar](50) NOT NULL,
+	[Телефон] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[РаботникиАэропорта]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[РаботникиАэропорта](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Имя] [nvarchar](50) NOT NULL,
+	[Фамилия] [nvarchar](50) NOT NULL,
+	[Должность] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Расписание]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Расписание](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[ФактическаяДатаВылета] [nvarchar](50) NOT NULL,
+	[ФактическаяДатаПрибытия] [nvarchar](50) NOT NULL,
+	[Авиакомпания] [nvarchar](50) NOT NULL,
+	[Статус] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Рейсы]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Рейсы](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[НомерРейса] [nvarchar](50) NOT NULL,
+	[ВремяВылета] [nvarchar](50) NOT NULL,
+	[ВремяПрибытия] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Самолёт]    Script Date: 19.04.2024 12:24:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Самолёт](
+	[id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Модель] [nvarchar](50) NOT NULL,
+	[Вместимость] [nvarchar](50) NOT NULL,
+	[Статус] [nvarchar](50) NOT NULL
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Диспетчеры] ON 
+GO
+INSERT [dbo].[Диспетчеры] ([id], [Логин], [Пароль]) VALUES (1, N'1', N'1')
+GO
+INSERT [dbo].[Диспетчеры] ([id], [Логин], [Пароль]) VALUES (2, N'Фун', N'1')
+GO
+SET IDENTITY_INSERT [dbo].[Диспетчеры] OFF
+GO
+USE [master]
+GO
+ALTER DATABASE [baskaAir] SET  READ_WRITE 
+GO
